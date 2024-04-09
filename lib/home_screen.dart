@@ -1,18 +1,31 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:mvp/crypto_mode.dart';
+import 'package:mvp/data/crypto_model.dart';
+
+import 'package:mvp/modules/crypto_presenter/crypto_presenter.dart';
 
 class Home_Page extends StatefulWidget {
-  final List currencies;
-  Home_Page({Key? key, required this.currencies}) : super(key: key);
+  Home_Page({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _Home_PageState createState() => _Home_PageState();
+  State<Home_Page> createState() => _Home_PageState();
 }
 
-class _Home_PageState extends State<Home_Page> {
-  final List<MaterialColor> _colors = [Colors.blue, Colors.indigo, Colors.red];
+class _Home_PageState extends State<Home_Page> implements CryptoListView {
+  List<CryptoModel> currencies = [];
+  late CryptoListPresenter _presenter;
+
+  final List<Color> _colors = [Colors.blue, Colors.indigo, Colors.red];
+  _Home_PageState() {
+    _presenter = CryptoListPresenter(this);
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _presenter.LoadCurrency();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +43,10 @@ class _Home_PageState extends State<Home_Page> {
         children: [
           Flexible(
             child: ListView.builder(
-              itemCount: widget.currencies.length,
+              itemCount: currencies.length,
               itemBuilder: (context, index) {
-                final CryptoModel currency = widget.currencies[index];
-                final MaterialColor color = _colors[index % _colors.length];
+                final CryptoModel currency = currencies[index];
+                final Color color = _colors[index % _colors.length];
 
                 return _getListItem(currency, color);
               },
@@ -44,12 +57,12 @@ class _Home_PageState extends State<Home_Page> {
     );
   }
 
-  ListTile _getListItem(CryptoModel currency, MaterialColor color) {
+  ListTile _getListItem(CryptoModel currency, Color color) {
     final String name = currency.name ?? '';
-    final String price = currency.quote?.uSD?.price.toString() ?? '';
+    final String price = currency.quote?.uSD?.price?.toStringAsFixed(5) ?? '';
     final String percentChange =
         currency.quote?.uSD?.percentChange1h.toString() ?? '';
-    print("price: $price, percentChange: $percentChange");
+    //  print("price: $price, percentChange: $percentChange");
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: color,
@@ -66,7 +79,7 @@ class _Home_PageState extends State<Home_Page> {
 
   Widget _getSubtitleText(String priceUSD, String percentageChange) {
     TextSpan priceTextWidget = TextSpan(
-      text: "\$$priceUSD\n",
+      text: "\$${priceUSD}\n",
       style: TextStyle(color: Colors.black),
     );
 
@@ -98,5 +111,18 @@ class _Home_PageState extends State<Home_Page> {
         text: priceTextWidget,
       );
     }
+  }
+
+  @override
+  void onLoadCryptoComplete(List<CryptoModel> items) {
+    // TODO: implement onLoadCryptoComplete
+    setState(() {
+      currencies = items;
+    });
+  }
+
+  @override
+  void onLoadCryptoError() {
+    // TODO: implement onLoadCryptoError
   }
 }
