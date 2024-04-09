@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:mvp/apiKey.dart';
 import 'package:mvp/crypto_mode.dart';
 import 'package:mvp/home_screen.dart';
 import 'package:http/http.dart' as http;
@@ -24,7 +25,6 @@ class MyApp extends StatelessWidget {
 }
 
 Future<List<CryptoModel>> getCryptoPrices() async {
-  String apiKey = 'd29ce175-7536-4d1e-aff6-2c5a869bcc4d';
   String cryptoUrl =
       "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
 
