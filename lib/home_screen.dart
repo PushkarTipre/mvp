@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvp/data/crypto_model.dart';
+import 'package:mvp/data/presenter/crypto_model.dart';
 
 import 'package:mvp/modules/crypto_presenter/crypto_presenter.dart';
 
@@ -12,7 +12,8 @@ class Home_Page extends StatefulWidget {
   State<Home_Page> createState() => _Home_PageState();
 }
 
-class _Home_PageState extends State<Home_Page> implements CryptoListView {
+class _Home_PageState extends State<Home_Page>
+    implements CryptoListViewPresenter {
   List<CryptoModel> currencies = [];
   late CryptoListPresenter _presenter;
 
@@ -62,7 +63,7 @@ class _Home_PageState extends State<Home_Page> implements CryptoListView {
     final String price = currency.quote?.uSD?.price?.toStringAsFixed(5) ?? '';
     final String percentChange =
         currency.quote?.uSD?.percentChange1h.toString() ?? '';
-    //  print("price: $price, percentChange: $percentChange");
+    print("price: $price, percentChange: $percentChange");
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: color,

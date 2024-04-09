@@ -1,5 +1,5 @@
-import 'package:mvp/data/crypto_model.dart';
-import 'package:mvp/data/crypto_model_abstract.dart';
+import 'package:mvp/data/presenter/crypto_model.dart';
+import 'package:mvp/data/presenter/crypto_model_abstract.dart';
 
 class MockCryptoRepository implements CryptoRepository {
   @override

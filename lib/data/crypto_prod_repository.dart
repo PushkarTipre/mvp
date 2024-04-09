@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:mvp/apiKey.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:mvp/data/crypto_model.dart';
-import 'package:mvp/data/crypto_model_abstract.dart';
+
+import 'package:mvp/data/presenter/crypto_model.dart';
+import 'package:mvp/data/presenter/crypto_model_abstract.dart';
 
 class ProdCryptoRepository implements CryptoRepository {
   @override

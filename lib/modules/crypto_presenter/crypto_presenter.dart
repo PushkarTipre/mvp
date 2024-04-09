@@ -1,15 +1,15 @@
-import 'package:mvp/data/crypto_model.dart';
-import 'package:mvp/data/crypto_model_abstract.dart';
+import 'package:mvp/data/presenter/crypto_model.dart';
+import 'package:mvp/data/presenter/crypto_model_abstract.dart';
 
 import 'package:mvp/dependency_injection.dart';
 
-abstract class CryptoListView {
+abstract class CryptoListViewPresenter {
   void onLoadCryptoComplete(List<CryptoModel> items);
   void onLoadCryptoError();
 }
 
 class CryptoListPresenter {
-  final CryptoListView _view;
+  final CryptoListViewPresenter _view;
   late CryptoRepository _repository;
 
   CryptoListPresenter(this._view) {
