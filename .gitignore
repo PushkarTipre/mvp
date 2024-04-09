@@ -30,6 +30,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+lib/apiKey.dart
 
 # Symbolication related
 app.*.symbols
@@ -42,5 +43,3 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-/lib/apiKey.dart
-./lib/apiKey
